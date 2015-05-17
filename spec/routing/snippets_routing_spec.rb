@@ -5,6 +5,7 @@ describe 'snippets routing', type: :routing do
     specify { expect(get: '/').to route_to(controller: 'snippets', action: 'index') }
     specify { expect(get: '/snippets/new').to route_to(controller: 'snippets', action: 'new') }
     specify { expect(get: '/snippets/mine').to route_to(controller: 'snippets', action: 'mine') }
+    specify { expect(post: '/snippets').to route_to(controller: 'snippets', action: 'create') }
   end
 end
 
