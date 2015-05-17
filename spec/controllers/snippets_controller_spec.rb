@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SnippetsController, :type => :controller do
   let(:user) { User.create(username: 'user123', email: 'user123@example.com', password: 'password') }
+  let(:snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
 
   context 'when not logged in' do
     describe "GET 'index'" do
@@ -38,11 +39,17 @@ RSpec.describe SnippetsController, :type => :controller do
         expect(response).to redirect_to(new_user_session_path)
       end
     end
+    
+    describe "PUT 'update'" do
+      it 'redirects' do
+        put :update, id: snippet.id, snippet: { filename: 'new_filename.rs', content: '...' }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   context 'when logged in' do
     before { sign_in user }
-    let(:snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
     
     describe "GET 'new'" do
       it "returns http success" do
@@ -72,6 +79,17 @@ RSpec.describe SnippetsController, :type => :controller do
         get :edit, id: snippet.id
         expect(response).to be_success
         expect(assigns[:snippet]).not_to be_nil
+      end
+    end
+    
+    describe "PUT 'update'" do
+      it 'updates the snippet and redirects' do
+        new_filename = 'new_filename.rs'
+        new_content = 'New content'
+        put :update, id: snippet.id, snippet: { filename: new_filename, content: new_content }
+        expect(snippet.reload.filename).to eq(new_filename)
+        expect(snippet.content).to eq(new_content)
+        expect(response).to redirect_to(mine_snippets_path)
       end
     end
 

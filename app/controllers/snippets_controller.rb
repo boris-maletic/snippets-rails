@@ -5,16 +5,11 @@ class SnippetsController < ApplicationController
   end
 
   def mine
-    @snippets = Snippet.where(user: current_user).order(id: :desc)
+    @snippets = Snippet.where(user: current_user).order(updated_at: :desc)
   end
 
   def new
     @snippet = Snippet.new
-  end
-
-  def edit
-    # TODO: add authorization!
-    @snippet = Snippet.find(params[:id])
   end
 
   def create
@@ -26,6 +21,23 @@ class SnippetsController < ApplicationController
         format.html { redirect_to mine_snippets_path, notice: 'Snippet was successfully created.' }
       else
         format.html { render :new }
+      end
+    end
+  end
+
+  def edit
+    # TODO: add authorization!
+    @snippet = Snippet.find(params[:id])
+  end
+
+  def update
+    # TODO: add authorization!
+    @snippet = Snippet.find(params[:id])
+    respond_to do |format|
+      if @snippet.update(snippet_params)
+        format.html { redirect_to mine_snippets_path, notice: 'Snippet was successfully updated.' }
+      else
+        format.html { render :edit }
       end
     end
   end
