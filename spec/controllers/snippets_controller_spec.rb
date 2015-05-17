@@ -47,6 +47,7 @@ RSpec.describe SnippetsController, :type => :controller do
       it "returns http success" do
         get :mine
         expect(response).to be_success
+        expect(assigns[:snippets]).not_to be_nil
       end
     end
 

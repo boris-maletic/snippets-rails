@@ -1,3 +1,38 @@
 // Place all the styles related to the snippets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+
+ul.snippet-list {
+  margin-top: 20px;
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    position: relative;
+    margin-top: 12px;
+    &:nth-child(odd)  { border-left: solid 5px $brand-info; }
+    &:nth-child(even)  { border-left: solid 5px $brand-success; }
+    padding: 5px 20px;
+    background: #fafafa;
+    min-height: 90px;
+
+    h3 { margin-top: 5px; }
+
+    .code {
+      font-family: monospace;
+      white-space: pre;
+    }
+
+    .actions { 
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      .btn { 
+        display: block; 
+        margin-bottom: 3px;
+      }
+    }
+  }
+}

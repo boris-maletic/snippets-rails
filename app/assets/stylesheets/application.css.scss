@@ -11,12 +11,13 @@
  * file per style scope.
  *
  *= require_self
+ *= require snippets
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body { padding-top: 60px; }
+body { padding-top: 60px; padding-bottom: 30px; }
 .navbar-form > .btn { margin-left: 2px; }
 .flash { margin-top: 10px; }
 

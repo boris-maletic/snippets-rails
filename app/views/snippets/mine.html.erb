@@ -4,3 +4,9 @@
 <%= link_to 'New snippet', new_snippet_path, class: 'btn btn-success' %>
 </div>
 
+
+<% if @snippets.any? %>
+<ul class="snippet-list">
+  <%= render @snippets %>
+</ul>
+<% end %>

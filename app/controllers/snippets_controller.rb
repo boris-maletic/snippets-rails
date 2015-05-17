@@ -5,6 +5,7 @@ class SnippetsController < ApplicationController
   end
 
   def mine
+    @snippets = Snippet.where(user: current_user).order(id: :desc)
   end
 
   def new
