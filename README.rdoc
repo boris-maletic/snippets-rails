@@ -1,0 +1,4 @@
+== snippets-rails
+
+A code snippet management application.
+
