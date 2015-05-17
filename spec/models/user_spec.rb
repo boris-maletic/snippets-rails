@@ -32,4 +32,7 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe '#snippets association' do
+    it { is_expected.to respond_to(:snippets) }
+  end
 end
