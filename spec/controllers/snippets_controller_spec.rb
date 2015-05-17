@@ -17,6 +17,13 @@ RSpec.describe SnippetsController, :type => :controller do
         expect(response).to redirect_to(new_user_session_path)
       end
     end
+
+    describe "GET 'edit'" do
+      it 'redirects' do
+        get :edit, id: 42
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
     
     describe "GET 'mine'" do
       it 'redirects' do
@@ -35,6 +42,7 @@ RSpec.describe SnippetsController, :type => :controller do
 
   context 'when logged in' do
     before { sign_in user }
+    let(:snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
     
     describe "GET 'new'" do
       it "returns http success" do
@@ -56,6 +64,14 @@ RSpec.describe SnippetsController, :type => :controller do
         data = { snippet: { filename: 'test.rb', content: 'puts "Hello!"' } }
         expect { post :create, data }.to change { Snippet.count }.by(1)
         expect(response).to redirect_to(mine_snippets_path)
+      end
+    end
+
+    describe "GET 'edit'" do
+      it 'redirects' do
+        get :edit, id: snippet.id
+        expect(response).to be_success
+        expect(assigns[:snippet]).not_to be_nil
       end
     end
 

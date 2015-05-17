@@ -12,6 +12,11 @@ class SnippetsController < ApplicationController
     @snippet = Snippet.new
   end
 
+  def edit
+    # TODO: add authorization!
+    @snippet = Snippet.find(params[:id])
+  end
+
   def create
     @snippet = Snippet.new(snippet_params)
     @snippet.user = current_user
