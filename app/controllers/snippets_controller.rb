@@ -5,5 +5,9 @@ class SnippetsController < ApplicationController
   end
 
   def new
+    @snippet = Snippet.new
+  end
+
+  def mine
   end
 end

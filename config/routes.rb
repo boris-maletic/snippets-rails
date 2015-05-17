@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :snippets
+  resources :snippets do
+    get 'mine', on: :collection
+  end
 
   root 'snippets#index'
 
