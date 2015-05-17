@@ -21,13 +21,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Snippets</a>
+          <%= link_to 'Snippets', root_path, class: 'navbar-brand' %>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
             <!--<li><a href="#contact">Contact</a></li>-->
           </ul>
+
+          <% unless user_signed_in? %>
+            <div class="nav navbar-form navbar-right">
+              <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary' %>
+              <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success' %>
+            </div>
+          <% end %>
         </div>
       </div>
     </nav>
