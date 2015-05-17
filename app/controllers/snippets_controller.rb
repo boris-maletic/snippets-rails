@@ -18,7 +18,7 @@ class SnippetsController < ApplicationController
 
     respond_to do |format|
       if @snippet.save
-        format.html { redirect_to mine_snippets_path, notice: 'Snippet was successfully created.' }
+        format.html { redirect_to mine_snippets_url, notice: 'Snippet was successfully created.' }
       else
         format.html { render :new }
       end
@@ -35,10 +35,19 @@ class SnippetsController < ApplicationController
     @snippet = Snippet.find(params[:id])
     respond_to do |format|
       if @snippet.update(snippet_params)
-        format.html { redirect_to mine_snippets_path, notice: 'Snippet was successfully updated.' }
+        format.html { redirect_to mine_snippets_url, notice: 'Snippet was successfully updated.' }
       else
         format.html { render :edit }
       end
+    end
+  end
+
+  def destroy
+    # TODO: add authorization!
+    @snippet = Snippet.find(params[:id])
+    @snippet.destroy
+    respond_to do |format|
+      format.html { redirect_to mine_snippets_url, notice: 'Snippet was successfully deleted.' }
     end
   end
 

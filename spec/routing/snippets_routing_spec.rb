@@ -9,6 +9,7 @@ describe 'snippets routing', type: :routing do
     specify { expect(post: '/snippets').to route_to(controller: 'snippets', action: 'create') }
     specify { expect(put: '/snippets/42').to route_to(controller: 'snippets', action: 'update', id: '42') }
     specify { expect(patch: '/snippets/42').to route_to(controller: 'snippets', action: 'update', id: '42') }
+    specify { expect(delete: '/snippets/42').to route_to(controller: 'snippets', action: 'destroy', id: '42') }
   end
 end
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SnippetsController, :type => :controller do
   let(:user) { User.create(username: 'user123', email: 'user123@example.com', password: 'password') }
-  let(:snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
+  let!(:snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
 
   context 'when not logged in' do
     describe "GET 'index'" do
@@ -43,6 +43,13 @@ RSpec.describe SnippetsController, :type => :controller do
     describe "PUT 'update'" do
       it 'redirects' do
         put :update, id: snippet.id, snippet: { filename: 'new_filename.rs', content: '...' }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+    
+    describe "DELETE 'destroy'" do
+      it 'redirects' do
+        delete :destroy, id: 42
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -89,6 +96,14 @@ RSpec.describe SnippetsController, :type => :controller do
         put :update, id: snippet.id, snippet: { filename: new_filename, content: new_content }
         expect(snippet.reload.filename).to eq(new_filename)
         expect(snippet.content).to eq(new_content)
+        expect(response).to redirect_to(mine_snippets_path)
+      end
+    end
+    
+    describe "DELETE 'destroy'" do
+      let!(:temp_snippet) { Snippet.create(user: user, filename: 'test.rb', content: 'puts "A"') }
+      it 'deletes the snippet and redirects' do
+        expect { delete :destroy, id: temp_snippet.id }.to change { Snippet.count }.by(-1)
         expect(response).to redirect_to(mine_snippets_path)
       end
     end
