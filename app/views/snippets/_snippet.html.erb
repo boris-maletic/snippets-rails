@@ -1,6 +1,10 @@
 <li>
   <h3><%= snippet.filename %></h3>
   <div class="code"><%= snippet.content %></div>
+  <%= link_to(snippet, class: 'comments') do %>
+    <span class="count"><%= snippet.comments_count %></span>
+    <span class="text">comments</span>
+  <% end %>
   <div class="actions">
     <%= link_to 'Edit', edit_snippet_path(snippet), class: 'btn btn-default' %>
     <%= link_to 'Delete', snippet, method: :delete, class: 'btn btn-danger', 
