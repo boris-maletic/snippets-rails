@@ -26,13 +26,13 @@ class SnippetsController < ApplicationController
   end
 
   def edit
-    # TODO: add authorization!
     @snippet = Snippet.find(params[:id])
+    authorize @snippet
   end
 
   def update
-    # TODO: add authorization!
     @snippet = Snippet.find(params[:id])
+    authorize @snippet
     respond_to do |format|
       if @snippet.update(snippet_params)
         format.html { redirect_to mine_snippets_url, notice: 'Snippet was successfully updated.' }
@@ -43,8 +43,8 @@ class SnippetsController < ApplicationController
   end
 
   def destroy
-    # TODO: add authorization!
     @snippet = Snippet.find(params[:id])
+    authorize @snippet
     @snippet.destroy
     respond_to do |format|
       format.html { redirect_to mine_snippets_url, notice: 'Snippet was successfully deleted.' }
